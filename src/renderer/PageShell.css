@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply font-merriweather focus:border-none focus:outline-none;
+}
+
+@layer base {
+  :root {
+    --container: 930px;
+    background: #16131d;
+  }
+
+  .noise-bg {
+    background: url(/noise.png);
+    animation: noise 150ms ease-in-out infinite;
+  }
+
+  main > *  {
+	   grid-column: 2 / 3;
+	}
+}
+
+@keyframes noise {
+	0% {
+		background-position: 0rem 9rem;
+	}
+	10% {
+		background-position: -1rem -4rem;
+	}
+	20% {
+		background-position: -8rem -4rem;
+	}
+	30% {
+		background-position: 9rem -9rem;
+	}
+	40% {
+		background-position: -2rem 7rem;
+	}
+	50% {
+		background-position: -9rem 4rem;
+	}
+	60% {
+		background-position: 2rem 6rem;
+	}
+	70% {
+		background-position: 7rem -8rem;
+	}
+	80% {
+		background-position: -9rem 1rem;
+	}
+	90% {
+		background-position: 6rem -5rem;
+	}
+	100% {
+		background-position: -7rem 0rem;
+	}
+}
+
+.cursor {
+  /*  transition: transform 50ms ease;  */
+  /*  transform:   */
+      /*  translate(-50%, -50%)   */
+      /*  translate(var(--x, 0px), var(--y, 0px))   */
+      /*  scale(var(--scale, 1));  */
+}

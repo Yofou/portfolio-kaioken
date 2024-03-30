@@ -1,0 +1,275 @@
+import { HrTitle } from "$/components/shared/HrTtitle"
+import "../../../styles/Markdown.css"
+import "@fontsource/fira-mono"
+
+<HrTitle>Forging a great cursor</HrTitle>
+
+# Oh boy... where do we begin.
+
+<div className="w-full grid grid-cols-1 md:grid-cols-[1fr,max-content] gap-4 items-center">
+To get started, it's important to have a strong foundation in web development, including familiarity with variables, conditionals, event handling, and the use of CSS classes and custom properties. Additionally, it can be useful to understand the difference between time-based and spring-based animations. While this distinction is not strictly necessary, time-based animations rely on duration, similar to CSS transitions, while spring-based animations use physical properties such as stiffness and damping to create more realistic, fluid animations. However, if you are not particularly interested in researching these topics, that's okay as well, just know you'll likely use both somewhere here.
+
+  <img className="w-full md:w-[290px]" src="/blogs/cursor/moreyouknow.gif" />
+</div>
+
+<HrTitle>Structure</HrTitle>
+
+When creating a custom cursor, there are a few important things to keep in mind. For example, you'll need to consider how the cursor behaves during scrolling, how it reacts to DOM mutations, and how it responds to pointer events. In this mini-tutorial, we will only be focusing on scroll and pointer-events.
+
+To get started, let's take a look at the approach we'll be using. When animating an element on a screen, it is generally best practice to use the transform property with the translate function. In our case, we want to keep the cursor in the top left corner of the screen, so we will use these techniques to move the cursor to that location. Make sure to double check that there is no padding or margin that could potentially push the cursor out of place. We can use the Firefox dev tools to visualize our progress and ensure that the cursor is being positioned correctly.
+
+<video autoplay height="523">
+  <source src="/blogs/cursor/demo.mp4" type="video/mp4" />
+</video>
+
+If you would like a visual representation of the transformation, I have created a repl that demonstrates the movement of the cursor. While the code in the repl is written in svelte, you do not need to have any prior knowledge of svelte to understand it. I have included explanations for any svelte-specific concepts. Now, let's move on to the coding portion of this tutorial. We will start by setting up the basic HTML structure for the cursor, and then we will add the necessary JavaScript in the next step.
+
+```svelte
+<div
+	class="cursor"
+/>
+
+<style>
+	:global(*), :global(body) {
+		padding: 0;
+		margin: 0;
+	}
+
+	.cursor {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 2px solid red;
+	}
+</style>
+```
+
+Looking at this code, we have \<div /\> that is our custom cursor element which we styled to be a red 35px diameter circle, pretty simple stuff. now let's get into the fun part, adding the JS.
+
+<HrTitle>Motion</HrTitle>
+
+```svelte
+<script>
+	let mouseCoords = { x: 0, y: 0 };
+	const onMouseMove = (event) => {
+		mouseCoords = { x: event.x, y: event.y }
+	}
+</script>
+
+<svelte:window on:mousemove={onMouseMove} />
+
+<div
+	class="cursor"
+	style:--x={`${mouseCoords.x}px`}
+	style:--y={`${mouseCoords.y}px`}
+/>
+
+<style>
+	:global(*), :global(body) {
+		padding: 0;
+		margin: 0;
+	}
+
+	.cursor {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 2px solid red;
+
+		transform: translate(-50%, -50%) translate(var(--x, 0px), var(--y, 0px));
+	}
+</style>
+```
+
+To set up our cursor animation, we first need to create an object called mouseCoords that stores the x and y coordinates of the mouse. We do this using the script tag and an event function at the top of the code. Then, we use these values to set custom CSS properties within the cursor div. In svelte, this is equivalent to using the style attribute in HTML. The custom CSS properties, along with the translate function, allow us to position the cursor relative to the mouse. You may have noticed the translate(-50%, -50%) function, which centers the cursor on the mouse cursor. If we didn't include this, the cursor would default to the top left corner of the mouse cursor. When you have completed these steps, you should have a circle that follows the mouse around on the screen and it should look something like this.
+
+<HrTitle>Fluidity</HrTitle>
+If you've been following along with the code or just testing out the examples, you may have noticed that our cursor follows the mouse, but it feels very stiff and not particularly pleasant to use. In the next step, we will look at ways to improve the movement of the cursor and make it feel more natural.
+
+Earlier, I mentioned the concept of spring-based animations. This is where those come in handy. While it might seem tempting to simply use the transition property with the transform function to animate the cursor, however this approach has some disadvantages. For example, when chaining different actions together, you may notice that the animation appears fragmented or stuttered on the screen. Even if you don't experience these issues, you may still find it difficult to differentiate between different timings of the types of animations, such as scaling or 3D effects, etc, when using the transition property. Therefore, even if you do not use a spring-based animation library, I still recommend using some kind of animation library that will give you more control in the long run.
+
+Fortunately, svelte has a built-in tween and spring animation library, which makes it easy for us to add these features to our cursor. As a side note, you may have noticed that I prefix any assignments or accesses to the mouseCoords variable with a $ symbol in the next code example. This is just svelte's syntax for subscribing to or setting the value of an animation store. These stores can be thought of as observables, similar to variables that can be watched for changes.
+
+```svelte
+<script>
+	import { spring } from "svelte/motion"
+
+	const mouseCoords = spring({ x: 0, y: 0 });
+	const onMouseMove = (event) => {
+		$mouseCoords = { x: event.x, y: event.y }
+	}
+</script>
+
+<svelte:window on:mousemove={onMouseMove} />
+
+<div
+	class="cursor"
+	style:--x={`${$mouseCoords.x}px`}
+	style:--y={`${$mouseCoords.y}px`}
+/>
+
+<style>
+	:global(*), :global(body) {
+		padding: 0;
+		margin: 0;
+	}
+
+	.cursor {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 2px solid red;
+
+		transform: translate(-50%, -50%) translate(var(--x, 0px), var(--y, 0px));
+	}
+</style>
+```
+
+As you can see in this code, all I did was wrap the mouseCoords object with the spring function. This interpolates the values from the starting value to the assigned value, and it makes a huge difference in the feel and flow of the cursor. You can also adjust the stiffness and damping values to achieve a specific feel, but the default values work well for now. If you are using React rather than svelte, a good library to try is react-spring, which should provide similar functionality.
+
+To complete this section, I've also added support for scrolling with the cursor. If you try scrolling with the current code, you'll notice that the cursor becomes increasingly offset from the actual mouse position as you scroll. There are a few different ways to solve this problem, but my favorite solution is to use CSS. Here is an example of how this can be achieved:
+
+```svelte
+<script>
+	import { spring } from "svelte/motion"
+	const mouseCoords = spring({ x: 0, y: 0 })
+	const onMouseMove = (event) => {
+		$mouseCoords = { x: event.x, y: event.y }
+	}
+</script>
+
+<svelte:window on:mousemove={onMouseMove} />
+
+<div class="container">
+	<div
+		class="cursor"
+		style:--x={`${$mouseCoords.x}px`}
+		style:--y={`${$mouseCoords.y}px`}
+	/>
+</div>
+
+<style>
+	:global(body) {
+		width: 100vw;
+		height: 200vh;
+	}
+
+	:global(*), :global(body) {
+		padding: 0;
+		margin: 0;
+	}
+
+	.container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.cursor {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 2px solid red;
+
+		transform: translate(-50%, -50%) translate(var(--x, 0px), var(--y, 0px));
+	}
+</style>
+```
+
+If you take a look at the REPL, you will see that the cursor now sticks to the mouse when scrolling. We accomplish this by wrapping the cursor in a container element that is positioned fixed in the viewport, and we apply the pointer-events: none; property to this element. This CSS property allows users to click through elements as if they were not there, effectively making the container element transparent like it was never there.
+
+<HrTitle>Interactiveness</HrTitle>
+So let's take this little further and show you how to make the cursor interact with other elements on the site, read this it's super simple bu don't worry I'll explain it later.
+
+In this code, we are simply extending the onMouseMove function to include additional functionality. We use the event object to access the element that the mouse is hovering over by using event.target. Then, we use the instanceof keyword to determine the type of element we are hovering over. You can find a list of all the available element types here. In this example, we are using the instanceof keyword to scale up the cursor when it is hovering over certain elements. The resulting code will produce this effect.
+
+<HrTitle>Communication</HrTitle>
+
+So far, you have learned about the structure, motion, fluidity, and interactiveness of the cursor. But what about communication? As it stands, the cursor is able to identify the type of element it is interacting with, but how can we make the cursor understand other aspects, like styling, and allow the element to communicate extra information to the cursor itself? This is an important question to consider as we continue to develop the cursor.
+
+The key to answering these questions lies in three things: data-attributes, computed styles, and getBoundingClientRect. These tools will give you everything you need to create component-level interactivity with your cursor. Let's see how we can use them to implement this functionality.
+
+```svelte
+<script>
+import { spring } from "svelte/motion"
+const mouseCoords = spring({ x: 0, y: 0 })
+const morph = spring({ diameter: 35 })
+let color = null
+
+const onMouseMove = (event) => {
+	$mouseCoords = { x: event.x, y: event.y }
+}
+
+const onMouseOver = (event) => {
+	if (event.target instanceof HTMLElement) {
+		const rect = event.target.getBoundingClientRect();
+		const styles = window.getComputedStyle(event.target);
+		if (styles.cursor === "pointer") {
+			$morph = { diameter: rect.width > rect.height ? rect.width : rect.height }
+			const attr = event.target.dataset.color
+			if (attr) color =attr
+		}
+	}
+}
+
+const onMouseOut = (event) => {
+	$morph = { diameter: 35 }
+	color = null
+}
+</script>
+
+<svelte:window
+	on:mousemove={onMouseMove}
+	on:mouseover={onMouseOver}
+	on:mouseout={onMouseOut}
+/>
+
+<div class="container">
+	<div
+		class="cursor"
+		style:--x={`${$mouseCoords.x}px`}
+		style:--y={`${$mouseCoords.y}px`}
+		style:--diameter={`${$morph.diameter}px`}
+		style:--color={color}
+	/>
+</div>
+
+<style>
+.container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.cursor {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: var(--diameter, 35px);
+	height: var(--diameter, 35px);
+	border-radius: 50%;
+	border: 2px solid var(--color, red);
+
+	transform: 
+      translate(-50%, -50%) 
+      translate(var(--x, 0px), var(--y, 0px)) 
+      scale(var(--scale, 1));
+}
+</style>
+```
+
+To begin, we start off in a similar way to our last example by using event.target to access the element that the mouse is currently hovering over. With this information, we can gather the width, height, and position of the element using the getBoundingClientRect function. Then, we can use the getComputedStyle function to gather any additional information we might need, such as the cursor pointer to activate interactions. We can also use data-attributes to change the color of the cursor when hovering over an element. When you have implemented these features, your cursor should be fully functional and look something like this.
+
+<HrTitle>Conclusion</HrTitle>
+I hope you enjoyed this tutorial and reading my first blog! I am excited to see everyone's custom cursors, but it's important to note that this tutorial is not exhaustive and you may encounter some unexpected edge cases as you work on your own cursor. Be prepared to troubleshoot and don't be afraid to seek out additional resources. Who knows, maybe I'll cover some of these edge cases in a future blog post. Thanks for reading!

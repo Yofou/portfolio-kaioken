@@ -1,0 +1,33 @@
+
+h1 {
+  @apply text-yellow-300 text-[24px]  text-center font-bold;
+}
+
+p, pre {
+  @apply !mt-4;
+}
+
+pre, pre * {
+  @apply font-fira;
+}
+
+video {
+  @apply my-4
+}
+
+code {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+}
+
+.highlighted {
+  display: inline-block;
+  width: 100%;
+  background: red;
+}
+
+.line {
+  line-break: anywhere;
+  white-space: pre-wrap;
+}

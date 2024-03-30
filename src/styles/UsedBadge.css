@@ -1,0 +1,11 @@
+.used-item:nth-of-type(n + 15) {
+  @apply hidden md:grid;
+}
+
+.cancel > .used-item {
+  @apply grid;
+}
+
+.used-item > svg {
+  pointer-events: none;
+}
