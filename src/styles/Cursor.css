@@ -1,0 +1,28 @@
+.cursor {
+  transition: 
+    width 75ms ease, 
+    height 75ms ease, 
+    border-color 100ms ease-in-out;
+
+  z-index: 10;
+
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--color);
+  border-radius: var(--rounded);
+  opacity: var(--opacity);
+
+  transform:
+      translate(-50%, -50%)
+      translate(var(--x, 0px), var(--y, 0px))
+      scale(var(--scale, 1));
+}
+
+.cursor-morph {
+  width: var(--width, 48px);
+  height: var(--height, 48px);
+
+  transform:
+      translate(var(--x, 0px), var(--y, 0px))
+      scale(var(--scale, 1));
+}

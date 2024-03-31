@@ -15,8 +15,8 @@ dependencies:
     specifier: ^5.0.12
     version: 5.0.12
   '@kaioken-core/hooks':
-    specifier: 0.0.1-13
-    version: 0.0.1-13(kaioken@0.12.1)(rollup@4.10.0)(typescript@5.3.3)(vite@5.1.1)
+    specifier: 0.0.1-20
+    version: 0.0.1-20(kaioken@0.12.1)(rollup@4.10.0)(typescript@5.3.3)(vite@5.1.1)
   '@mapbox/rehype-prism':
     specifier: ^0.9.0
     version: 0.9.0
@@ -44,6 +44,9 @@ dependencies:
   luxon:
     specifier: ^3.4.4
     version: 3.4.4
+  motion:
+    specifier: ^10.17.0
+    version: 10.17.0
   prism-themes:
     specifier: ^1.9.0
     version: 1.9.0
@@ -56,12 +59,15 @@ dependencies:
   tailwindcss-hocus:
     specifier: ^0.0.7
     version: 0.0.7(tailwindcss@3.4.1)
+  tiny-emitter:
+    specifier: ^2.1.0
+    version: 2.1.0
   tsx:
     specifier: ^4.7.1
     version: 4.7.1
   vike:
-    specifier: ^0.4.161
-    version: 0.4.161(vite@5.1.1)
+    specifier: ^0.4.167
+    version: 0.4.167(vite@5.1.1)
   vite:
     specifier: ^5.1.1
     version: 5.1.1
@@ -385,10 +391,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@kaioken-core/hooks@0.0.1-13(kaioken@0.12.1)(rollup@4.10.0)(typescript@5.3.3)(vite@5.1.1):
-    resolution: {integrity: sha512-4JJ/v0LKB6NVmDRdLr0tT0jbYgbkKQg950JndV5NJxOa9jTJhiI2hjyG8aAEw3SeWjyf0x7MEehPoNSNC0DL3Q==}
+  /@kaioken-core/hooks@0.0.1-20(kaioken@0.12.1)(rollup@4.10.0)(typescript@5.3.3)(vite@5.1.1):
+    resolution: {integrity: sha512-tymg347sibr52ZKUcfC36ora+6mP88zandy6eTCFk18Ks9PouE454/+amP2lDhyOx4rS/FRbOtLT7Q8RdQbkcw==}
     peerDependencies:
-      kaioken: ^0.11.3
+      kaioken: ^0.12.1
     dependencies:
       kaioken: 0.12.1
       vite-plugin-dts: 3.8.1(rollup@4.10.0)(typescript@5.3.3)(vite@5.1.1)
@@ -496,6 +502,53 @@ packages:
 
   /@microsoft/tsdoc@0.14.2:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
+    dev: false
+
+  /@motionone/animation@10.17.0:
+    resolution: {integrity: sha512-ANfIN9+iq1kGgsZxs+Nz96uiNcPLGTXwfNo2Xz/fcJXniPYpaz/Uyrfa+7I5BPLxCP82sh7quVDudf1GABqHbg==}
+    dependencies:
+      '@motionone/easing': 10.17.0
+      '@motionone/types': 10.17.0
+      '@motionone/utils': 10.17.0
+      tslib: 2.6.2
+    dev: false
+
+  /@motionone/dom@10.17.0:
+    resolution: {integrity: sha512-cMm33swRlCX/qOPHWGbIlCl0K9Uwi6X5RiL8Ma6OrlJ/TP7Q+Np5GE4xcZkFptysFjMTi4zcZzpnNQGQ5D6M0Q==}
+    dependencies:
+      '@motionone/animation': 10.17.0
+      '@motionone/generators': 10.17.0
+      '@motionone/types': 10.17.0
+      '@motionone/utils': 10.17.0
+      hey-listen: 1.0.8
+      tslib: 2.6.2
+    dev: false
+
+  /@motionone/easing@10.17.0:
+    resolution: {integrity: sha512-Bxe2wSuLu/qxqW4rBFS5m9tMLOw+QBh8v5A7Z5k4Ul4sTj5jAOfZG5R0bn5ywmk+Fs92Ij1feZ5pmC4TeXA8Tg==}
+    dependencies:
+      '@motionone/utils': 10.17.0
+      tslib: 2.6.2
+    dev: false
+
+  /@motionone/generators@10.17.0:
+    resolution: {integrity: sha512-T6Uo5bDHrZWhIfxG/2Aut7qyWQyJIWehk6OB4qNvr/jwA/SRmixwbd7SOrxZi1z5rH3LIeFFBKK1xHnSbGPZSQ==}
+    dependencies:
+      '@motionone/types': 10.17.0
+      '@motionone/utils': 10.17.0
+      tslib: 2.6.2
+    dev: false
+
+  /@motionone/types@10.17.0:
+    resolution: {integrity: sha512-EgeeqOZVdRUTEHq95Z3t8Rsirc7chN5xFAPMYFobx8TPubkEfRSm5xihmMUkbaR2ErKJTUw3347QDPTHIW12IA==}
+    dev: false
+
+  /@motionone/utils@10.17.0:
+    resolution: {integrity: sha512-bGwrki4896apMWIj9yp5rAS2m0xyhxblg6gTB/leWDPt+pb410W8lYWsxyurX+DH+gO1zsQsfx2su/c1/LtTpg==}
+    dependencies:
+      '@motionone/types': 10.17.0
+      hey-listen: 1.0.8
+      tslib: 2.6.2
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -1844,6 +1897,10 @@ packages:
     hasBin: true
     dev: false
 
+  /hey-listen@1.0.8:
+    resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
+    dev: false
+
   /html-encoding-sniffer@2.0.1:
     resolution: {integrity: sha512-D5JbOMBIR/TVZkubHT+OyT2705QvogUW4IBn6nHd756OwieSF9aDYFj4dv6HHEVGYbHaLETa3WggZYWWMyy3ZQ==}
     engines: {node: '>=10'}
@@ -2570,6 +2627,15 @@ packages:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  /motion@10.17.0:
+    resolution: {integrity: sha512-yBHYkrnJRiomuo88YQzG/v+nzFXKNlKw/Hh7uy8AV7nrYHnE07O6PEECShGbFmZvLrAOGc9qKzEDYmspDYjNWw==}
+    dependencies:
+      '@motionone/animation': 10.17.0
+      '@motionone/dom': 10.17.0
+      '@motionone/types': 10.17.0
+      '@motionone/utils': 10.17.0
+    dev: false
+
   /mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
     engines: {node: '>=10'}
@@ -3295,6 +3361,10 @@ packages:
     dependencies:
       any-promise: 1.3.0
 
+  /tiny-emitter@2.1.0:
+    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
+    dev: false
+
   /to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -3350,6 +3420,10 @@ packages:
 
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: false
+
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: false
 
   /tsx@4.7.1:
@@ -3542,13 +3616,13 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vike@0.4.161(vite@5.1.1):
-    resolution: {integrity: sha512-APiNZS9AuK9JpoJNvxXFxQ6arj3frJzx1kp+gzmXztq8QHa1Sbl5EDUqEGEz3waqO/Q4H0ebRx/W+/UwDk38iQ==}
+  /vike@0.4.167(vite@5.1.1):
+    resolution: {integrity: sha512-YsEjcK0pa3GRAfO5LlOKeuUpvpQIXBVuGya8Mia22U529CgIPSZqMsYt85/OymHnEoOZxFEDO4PshbX7xC9K2A==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:
       react-streaming: '>=0.3.5'
-      vite: '>=3.1.0'
+      vite: '>=4.4.0'
     peerDependenciesMeta:
       react-streaming:
         optional: true

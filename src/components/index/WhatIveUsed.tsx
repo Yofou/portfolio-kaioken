@@ -39,95 +39,95 @@ export const WhatIveUsed = () => {
   return (
     <section className="w-full">
     <ul className={`w-full flex justify-center md:justify-start flex-wrap gap-2 ${readMore ? 'cancel' : ''}`}>
-        <UsedBadge data-color="#61DAFB">
+        <UsedBadge color="#61DAFB">
           <React slot="icon" /> React
         </UsedBadge>
-        <UsedBadge data-color="#F1413D">
+        <UsedBadge color="#F1413D">
           <Svelte slot="icon" /> Svelte
         </UsedBadge>
-        <UsedBadge data-color="#4FC08D">
+        <UsedBadge color="#4FC08D">
           <Vue slot="icon" /> Vuejs
         </UsedBadge>
-        <UsedBadge data-color="#FFFFFF">
+        <UsedBadge color="#FFFFFF">
           <Next slot="icon" /> Next
         </UsedBadge>
-        <UsedBadge data-color="#00DC82">
+        <UsedBadge color="#00DC82">
           <Nuxt slot="icon" /> Nuxt
         </UsedBadge>
-        <UsedBadge data-color="#16B7FB">
+        <UsedBadge color="#16B7FB">
           <Quasar slot="icon" /> Quasar
         </UsedBadge>
-        <UsedBadge data-color="#663399">
+        <UsedBadge color="#663399">
           <Gatsby slot="icon" /> Gatsby
         </UsedBadge>
-        <UsedBadge data-color="#FF4154">
+        <UsedBadge color="#FF4154">
           <ReactQuery slot="icon" /> React Query
         </UsedBadge>
-        <UsedBadge data-color="#593D88">
+        <UsedBadge color="#593D88">
           <Redux slot="icon" /> Redux
         </UsedBadge>
-        <UsedBadge data-color="#EC5990">
+        <UsedBadge color="#EC5990">
           <ReactHookForm slot="icon" /> React Hook Form
         </UsedBadge>
-        <UsedBadge data-color="#ED225D">
+        <UsedBadge color="#ED225D">
           <P5 slot="icon" /> p5.js
         </UsedBadge>
-        <UsedBadge data-color="#38B2AC">
+        <UsedBadge color="#38B2AC">
           <Tailwind slot="icon" /> TailwindCss
         </UsedBadge>
-        <UsedBadge data-color="#48B0F1">
+        <UsedBadge color="#48B0F1">
           <Windi slot="icon" /> WindiCss
         </UsedBadge>
-        <UsedBadge data-color="#646CFF">
+        <UsedBadge color="#646CFF">
           <Vite slot="icon" /> Vite
         </UsedBadge>
-        <UsedBadge data-color="#06080B">
+        <UsedBadge color="#06080B">
           <Fastify slot="icon" /> Fastify
         </UsedBadge>
-        <UsedBadge data-color="#404D59">
+        <UsedBadge color="#404D59">
           <Express slot="icon" /> Express.js
         </UsedBadge>
-        <UsedBadge data-color="#E0234E">
+        <UsedBadge color="#E0234E">
           <Nest slot="icon" /> Nestjs
         </UsedBadge>
-        <UsedBadge data-color="#52B0E7">
+        <UsedBadge color="#52B0E7">
           <Sequelize slot="icon" /> Sequelize
         </UsedBadge>
-        <UsedBadge data-color="#3982CE">
+        <UsedBadge color="#3982CE">
           <Prisma slot="icon" /> Prisma
         </UsedBadge>
-        <UsedBadge data-color="#007ACC">
+        <UsedBadge color="#007ACC">
           <TypeScript slot="icon" /> Typescript
         </UsedBadge>
-        <UsedBadge data-color="#FFFFFF">
+        <UsedBadge color="#FFFFFF">
           <Deno slot="icon" /> Deno js
         </UsedBadge>
-        <UsedBadge data-color="#2E7EEA">
+        <UsedBadge color="#2E7EEA">
           <Strapi slot="icon" /> Strapi
         </UsedBadge>
-        <UsedBadge data-color="#0DB7ED">
+        <UsedBadge color="#0DB7ED">
           <Docker slot="icon" /> Docker
         </UsedBadge>
-        <UsedBadge data-color="#FFFFFF">
+        <UsedBadge color="#FFFFFF">
           <Vercel slot="icon" />
           Vercel
         </UsedBadge>
-        <UsedBadge data-color="#007BFC">
+        <UsedBadge color="#007BFC">
           <Vultr slot="icon" /> Vultr
         </UsedBadge>
-        <UsedBadge data-color="#123F6D">
+        <UsedBadge color="#123F6D">
           <OVH slot="icon" /> OVH
         </UsedBadge>
-        <UsedBadge data-color="#F38020">
+        <UsedBadge color="#F38020">
           <Cloudflare slot="icon" /> Cloudflare
         </UsedBadge>
-        <UsedBadge data-color="#57A143">
+        <UsedBadge color="#57A143">
           <Neovim slot="icon" /> Neovim
         </UsedBadge>
-        <UsedBadge data-color="#0078D7">
+        <UsedBadge color="#0078D7">
           <VsCode slot="icon" /> Visual Studio Code
         </UsedBadge>
-        <UsedBadge data-color="#F06611">
+        <UsedBadge color="#F06611">
           <Gitpod slot="icon" /> Gitpod
         </UsedBadge>
 

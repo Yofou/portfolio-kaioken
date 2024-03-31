@@ -21,8 +21,8 @@ export const LayoutDefault = (props: LayoutProps) => {
       <h1 className="sr-only">{props.title}</h1>
 			<Nav />
 
-      <Cursor />
       {children()}
     </main>
+      <Cursor />
   </>
 }
