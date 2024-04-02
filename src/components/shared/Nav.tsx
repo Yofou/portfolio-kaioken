@@ -12,7 +12,7 @@ export const Nav = () => {
         <a
           className="
         	  font-semibold
-        	  
+            rounded-full
         	  hover:text-yellow-300 hover:underline
         	  px-2
         	  py-1

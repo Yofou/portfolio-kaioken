@@ -2,12 +2,10 @@ import { Experience } from "$/components/index/Experience";
 import { WhatIveUsed } from "$/components/index/WhatIveUsed";
 import { BlogCarousel } from "$/components/shared/BlogsCarousel";
 import { HrTitle } from "$/components/shared/HrTtitle";
-import { metadata } from "../metadata";
 
 export { Page };
 
 function Page() {
-  const blogs = metadata;
   return (
     <>
       <header
@@ -78,7 +76,7 @@ function Page() {
       <WhatIveUsed />
 
       <HrTitle>Blogs</HrTitle>
-      <BlogCarousel blogs={blogs} />
+      <BlogCarousel />
     </>
   );
 }

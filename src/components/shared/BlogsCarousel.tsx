@@ -1,7 +1,9 @@
 import { useEmbla } from "$/hook/embla";
-import { useWindowSize } from "@kaioken-core/hooks";
-import { useRef } from "kaioken";
+import { useEventListener, useWindowSize } from "@kaioken-core/hooks";
+import { useCallback, useRef } from "kaioken";
 import "../../styles/BlogCarousel.css";
+import { emitter } from "$/hook/useCursorEvent";
+import { metadata } from "$/pages/metadata";
 
 const NoBlogs = () => {
   return (
@@ -14,17 +16,13 @@ const NoBlogs = () => {
   );
 };
 
-type BlogCarousel = Kaioken.FCProps<{
-  blogs: {
-    title: string;
-    description: string;
-    category: string;
-    thumbnail: string;
-    createdAt: string;
-    href: string;
-  }[];
-}>;
-export const BlogCarousel = (props: BlogCarousel) => {
+
+export const BlogCarousel = () => {
+  const blogs = metadata;
+  if (blogs.length === 0) {
+    return <NoBlogs />;
+  }
+
   const { width: innerWidth } = useWindowSize();
   const isMd = innerWidth > 768;
   const ref = useRef<HTMLElement>(null);
@@ -35,14 +33,24 @@ export const BlogCarousel = (props: BlogCarousel) => {
     plugins: [],
   });
 
-  if (props.blogs.length === 0) {
-    return <NoBlogs />;
-  }
+  const onMouseOver = useCallback(() => {
+    emitter.emit('carousel', true)
+  }, [])
+
+  const onMouseOut = useCallback((e: Event) => {
+    e.stopPropagation();
+    emitter.emit('carousel', false)
+  }, [])
 
   return (
-    <div data-mode={isMd ? "carousel" : ""} className="embla" ref={ref}>
+    <div 
+      className="embla" 
+      ref={ref}
+      onmouseover={onMouseOver}
+      onmouseout={onMouseOut}
+    >
       <div className="embla__carousel grid gap-4 grid-flow-row items-center md:grid-flow-col md:auto-cols-[540px]">
-        {props.blogs.map((blog) => {
+        {blogs.map((blog) => {
           return (
             <div className="embla__slide relative min-h-[450px] md:min-h-[700px] group overflow-hidden rounded-[10px] bg-purple-300">
               <img

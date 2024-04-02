@@ -1,42 +1,65 @@
 import { shouldExecHook, useHook } from "kaioken";
-import { AnimationOptions, animate, type AnimationControls } from "motion";
+import { tweened, spring, type Tweened, TweenedOptions, SpringOpts, SpringUpdateOpts, Spring } from 'svelte/motion'
+import { get } from 'svelte/store'
 
-type Setter<T> = ((setter: T) => AnimationControls)
-export const useMotionState = (
+export const useTweenState = (
   baseValue: number | (() => number),
-  baseOption: AnimationOptions
-) => {
+  baseOption?: TweenedOptions<number>
+): [number, (value: number, opts?: TweenedOptions<number> | undefined) => Promise<void> ] => {
 
   if (!shouldExecHook()) {
-    return [baseValue instanceof Function ? baseValue() : baseValue, ((_) => {}) as Setter<number>] as const
+    return [baseValue instanceof Function ? baseValue() : baseValue, async () => {}]
   }
 
   return useHook(
-    'useMotionState', 
+    'useTweenState', 
     { 
-      state: undefined as number | undefined, 
-      setState: undefined as any as Setter<number> 
+      state: undefined as any as Tweened<number>,
     }, 
     ({ hook, oldHook, update }) => {
       if (!oldHook) {
-        hook.state = baseValue instanceof Function ? baseValue() : baseValue
-        hook.setState = (
-          setter: number | ((prev: number) => number)
-        ) => {
-          const initialValue = hook.state ?? 0;
-          const setValue = setter instanceof Function ? setter(hook.state ?? 0) : setter
-          const targetDistance = setValue - initialValue;
+        hook.state = tweened(
+          baseValue instanceof Function ? baseValue() : baseValue,
+          baseOption
+        )
 
-
-          return animate((progress) => {
-            console.log(progress)
-            hook.state = initialValue + targetDistance * progress
-            update()
-          }, baseOption)
-        }
+        hook.cleanup =  hook.state.subscribe(_ => {
+          update()
+        })
       }
 
-      return [hook.state, hook.setState] as const
+      return [get(hook.state), hook.state.set]
+    }
+  )
+};
+
+export const useSpringState = (
+  baseValue: number | (() => number),
+  baseOption?: SpringOpts
+): [number, (value: number, opts?: SpringUpdateOpts | undefined) => Promise<void> ] => {
+
+  if (!shouldExecHook()) {
+    return [baseValue instanceof Function ? baseValue() : baseValue, async () => {}]
+  }
+
+  return useHook(
+    'useSpringState', 
+    { 
+      state: undefined as any as Spring<number>,
+    }, 
+    ({ hook, oldHook, update }) => {
+      if (!oldHook) {
+        hook.state = spring(
+          baseValue instanceof Function ? baseValue() : baseValue,
+          baseOption
+        )
+
+        hook.cleanup =  hook.state.subscribe(_ => {
+          update()
+        })
+      }
+
+      return [get(hook.state), hook.state.set]
     }
   )
 };
