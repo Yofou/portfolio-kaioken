@@ -1,0 +1,1 @@
+.used-item:nth-of-type(n+15){display:none}@media (min-width: 768px){.used-item:nth-of-type(n+15){display:grid}}.cancel>.used-item{display:grid}.used-item>svg{pointer-events:none}
