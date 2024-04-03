@@ -6,10 +6,10 @@ import "@fontsource/fira-mono/latin-400.css"
 
 # Oh boy... where do we begin.
 
-<div className="w-full grid grid-cols-1 md:grid-cols-[1fr,max-content] gap-4 items-center">
+<div className="w-full flex flex-col-reverse md:flex-row gap-4 items-center">
 To get started, it's important to have a strong foundation in web development, including familiarity with variables, conditionals, event handling, and the use of CSS classes and custom properties. Additionally, it can be useful to understand the difference between time-based and spring-based animations. While this distinction is not strictly necessary, time-based animations rely on duration, similar to CSS transitions, while spring-based animations use physical properties such as stiffness and damping to create more realistic, fluid animations. However, if you are not particularly interested in researching these topics, that's okay as well, just know you'll likely use both somewhere here.
 
-  <img className="w-full md:w-[290px]" src="/blogs/cursor/moreyouknow.gif" />
+  <img className="w-full md:w-[290px] md:h-full" width="290" height="232" src="/blogs/cursor/moreyouknow.gif" />
 </div>
 
 <HrTitle>Structure</HrTitle>
@@ -18,7 +18,7 @@ When creating a custom cursor, there are a few important things to keep in mind.
 
 To get started, let's take a look at the approach we'll be using. When animating an element on a screen, it is generally best practice to use the transform property with the translate function. In our case, we want to keep the cursor in the top left corner of the screen, so we will use these techniques to move the cursor to that location. Make sure to double check that there is no padding or margin that could potentially push the cursor out of place. We can use the Firefox dev tools to visualize our progress and ensure that the cursor is being positioned correctly.
 
-<video autoplay height="523">
+<video loop autoplay width="930" height="523">
   <source src="/blogs/cursor/demo.mp4" type="video/mp4" />
 </video>
 
