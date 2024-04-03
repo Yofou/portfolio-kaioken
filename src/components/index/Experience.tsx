@@ -18,7 +18,7 @@ export const Experience = () => {
         href="https://www.webrevived.com/"
         description="My Time at Web Revived started of with small, young & enthusiastic team which taught me how to interact with others team members and work with them efficiently & how to plan & execute making web-apps."
         position="Frontend"
-        src="/webrevived.jpg"
+        src="/webrevived.webp"
         classNameImg="justify-self-center self-center mix-blend-lighten w-[130px]"
         width="400"
         height="400"

@@ -61,7 +61,7 @@ function Page() {
 					    h-[250px]
 					    object-cover
 				    "
-            src="/new-profile.png"
+            src="/new-profile.webp"
             alt=""
             width="250"
             height="250"
