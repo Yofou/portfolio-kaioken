@@ -5,6 +5,7 @@ import kaioken from "vite-plugin-kaioken";
 import mdx from "@mdx-js/rollup";
 import shiki, { type RehypeShikiOptions } from "@shikijs/rehype";
 import { transformerNotationHighlight } from "@shikijs/transformers";
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 const customTheme = {
   name: "rose-pine-moon",
@@ -17,7 +18,9 @@ const customTheme = {
       },
     },
     {
-      scope: ["punctuation.definition.tag"],
+      scope: [
+        "punctuation.definition.tag"
+      ],
       settings: {
         foreground: "#e09142",
       },
@@ -49,6 +52,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    ViteImageOptimizer(),
     {
       enforce: "pre",
       ...mdx({

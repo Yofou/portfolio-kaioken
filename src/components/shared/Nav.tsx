@@ -34,7 +34,7 @@ export const Nav = () => {
           Blogs
         </a>
 
-        <a className="justify-self-end" href="https://github.com/Yofou">
+        <a className="justify-self-end rounded-full" href="https://github.com/Yofou">
           <img
             className="w-[30px] h-[30px] rounded-full"
             src="/icons/github.svg"

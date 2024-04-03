@@ -11,7 +11,6 @@ export const useEmbla = (ref: Kaioken.Ref<HTMLElement>, options: EmblaHookOption
   const embla = useRef<EmblaCarouselType>(null)
 
   useEffect(() => {
-    console.log('called', options.active)
     if (ref.current) {
       const plugins = options?.plugins ?? [];
       embla.current =  EmblaCarousel(ref.current, options, plugins);
