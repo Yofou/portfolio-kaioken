@@ -18,7 +18,7 @@ export const onRenderHtml: OnRenderHtmlAsync = async (
         <link rel="icon" href="/favicon.svg">
         <title>${getTitle(pageContext)}</title>
       </head>
-      <body>
+      <body class="noise-bg">
         <div id="page-root">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`
