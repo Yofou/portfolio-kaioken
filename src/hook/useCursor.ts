@@ -5,28 +5,29 @@ import {
   useEventListener,
   useMouse,
   useMutationObserver,
+  useTween,
+  useSpring,
 } from "@kaioken-core/hooks";
 import { useCallback, useEffect, useRef, useState } from "kaioken";
-import { useTweenState, useSpringState } from "./useMotionState";
 
 export const useCursor = () => {
   const { mouse } = useMouse();
 
   const cursorRef = useRef<HTMLElement>(null);
   const bounding = useElementBounding(cursorRef);
-  const [x, setX] = useSpringState(0, {
+  const [x, setX] = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
-  const [y, setY] = useSpringState(0, {
+  const [y, setY] = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
-  const [width, setWidth] = useTweenState(40, { duration: 100 });
-  const [height, setHeight] = useTweenState(40, { duration: 100 });
-  const [rounded, setRounded] = useTweenState(9999, { duration: 100 });
-  const [opacity, setOpacity] = useTweenState(0, { duration: 100 });
-  const [scale, setScale] = useTweenState(1, { duration: 100 });
+  const [width, setWidth] = useTween(40, { duration: 100 });
+  const [height, setHeight] = useTween(40, { duration: 100 });
+  const [rounded, setRounded] = useTween(9999, { duration: 100 });
+  const [opacity, setOpacity] = useTween(0, { duration: 100 });
+  const [scale, setScale] = useTween(1, { duration: 100 });
   const [color, setColor] = useState("#E9AA52");
   const mainRef = useRef<HTMLElement>(null);
 
