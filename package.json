@@ -35,7 +35,6 @@
     "express": "^4.18.2",
     "kaioken": "0.22.0",
     "luxon": "^3.4.4",
-    "srr@0.23.6": "link:kaioken/srr@0.23.6",
     "tailwindcss-hocus": "^0.0.7",
     "tiny-emitter": "^2.1.0",
     "tsx": "^4.7.1",
