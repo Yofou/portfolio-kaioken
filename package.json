@@ -33,7 +33,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "embla-carousel": "^7.0.5",
     "express": "^4.18.2",
-    "kaioken": "0.22.0",
+    "kaioken": "^0.23.0",
     "luxon": "^3.4.4",
     "tailwindcss-hocus": "^0.0.7",
     "tiny-emitter": "^2.1.0",
