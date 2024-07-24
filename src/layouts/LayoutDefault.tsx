@@ -1,7 +1,6 @@
 import { Cursor } from "$/components/shared/Cursor";
 import { Nav } from "$/components/shared/Nav";
 import { useWindowSize } from "@kaioken-core/hooks";
-import { children } from "kaioken";
 
 type LayoutProps = Kaioken.FCProps<{
   title: string
@@ -24,7 +23,7 @@ export const LayoutDefault = (props: LayoutProps) => {
       <h1 className="sr-only">{props.title}</h1>
 			<Nav />
 
-      {children()}
+      {props.children}
     </main>
     {isDesktop && <Cursor />}
   </>

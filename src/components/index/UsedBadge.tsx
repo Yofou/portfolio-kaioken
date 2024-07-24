@@ -1,5 +1,4 @@
 import { emitter } from "$/hook/useCursorEvent"
-import { children } from "kaioken"
 
 type UsedBadgeProps = Kaioken.FCProps<{
   color?: string
@@ -18,6 +17,6 @@ export const UsedBadge = (props: UsedBadgeProps) => {
     onmouseover={onMouseOver}
     onmouseout={onMouseOut}
   >
-    {children()}
+    {props.children}
   </li>
 }

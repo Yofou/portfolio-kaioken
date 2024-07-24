@@ -26,7 +26,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^5.0.12",
     "@fontsource/merriweather": "^5.0.12",
-    "@kaioken-core/hooks": "0.0.1-56",
+    "@kaioken-core/hooks": "^0.0.1-59",
     "@mdx-js/rollup": "^3.0.1",
     "@shikijs/rehype": "^1.2.1",
     "@shikijs/transformers": "^1.2.1",
