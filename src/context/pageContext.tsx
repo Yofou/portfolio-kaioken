@@ -2,7 +2,7 @@ import { createContext, useContext } from "kaioken"
 
 export { usePageContext, PageContextProvider }
 
-const Context = createContext<Vike.PageContext & { isClient: boolean }>(null)
+const Context = createContext<(Vike.PageContext & { isClient: boolean }) | null>(null)
 
 function PageContextProvider({
   pageContext,

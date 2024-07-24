@@ -9,6 +9,7 @@ export const onRenderHtml: OnRenderHtmlAsync = async (
   pageContext
 ): ReturnType<OnRenderHtmlAsync> => {
   const pageHtml = renderToString(App, { pageContext })
+  console.log(pageContext.urlParsed)
   return escapeInject`<!DOCTYPE html>
     <html lang="en">
       <head>
