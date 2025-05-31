@@ -8,28 +8,48 @@ import {
   useTween,
   useSpring,
 } from "@kaioken-core/hooks";
-import { useCallback, useEffect, useRef, useState } from "kaioken";
+import { HookDebugGroupAction, useCallback, useEffect, useHookDebugGroup, useRef, useState } from "kaioken";
 
 export const useCursor = () => {
+  useHookDebugGroup('Mouse', HookDebugGroupAction.Start)
   const { mouse } = useMouse();
+  useHookDebugGroup('Mouse', HookDebugGroupAction.End)
 
-  const cursorRef = useRef<HTMLElement>(null);
+  const cursorRef = useRef<HTMLElement | null>(null);
+  useHookDebugGroup('Bounding', HookDebugGroupAction.Start)
   const bounding = useElementBounding(cursorRef);
+  useHookDebugGroup('Bounding', HookDebugGroupAction.End)
+  useHookDebugGroup('X', HookDebugGroupAction.Start)
   const [x, setX] = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
+  useHookDebugGroup('X', HookDebugGroupAction.End)
+  useHookDebugGroup('Y', HookDebugGroupAction.Start)
   const [y, setY] = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
+  useHookDebugGroup('Y', HookDebugGroupAction.End)
+  useHookDebugGroup('Width', HookDebugGroupAction.Start)
   const [width, setWidth] = useTween(40, { duration: 100 });
+  useHookDebugGroup('Width', HookDebugGroupAction.End)
+  useHookDebugGroup('Height', HookDebugGroupAction.Start)
   const [height, setHeight] = useTween(40, { duration: 100 });
+  useHookDebugGroup('Height', HookDebugGroupAction.End)
+  useHookDebugGroup('Rounded', HookDebugGroupAction.Start)
   const [rounded, setRounded] = useTween(9999, { duration: 100 });
+  useHookDebugGroup('Rounded', HookDebugGroupAction.End)
+  useHookDebugGroup('Opacity', HookDebugGroupAction.Start)
   const [opacity, setOpacity] = useTween(0, { duration: 100 });
+  useHookDebugGroup('Opacity', HookDebugGroupAction.End)
+  useHookDebugGroup('Scale', HookDebugGroupAction.Start)
   const [scale, setScale] = useTween(1, { duration: 100 });
+  useHookDebugGroup('Scale', HookDebugGroupAction.End)
+  useHookDebugGroup('Color', HookDebugGroupAction.Start)
   const [color, setColor] = useState("#E9AA52");
-  const mainRef = useRef<HTMLElement>(null);
+  useHookDebugGroup('Color', HookDebugGroupAction.End)
+  const mainRef = useRef<HTMLElement | null>(null);
 
   const onMouseOver = useCallback(
     (event: MouseEvent) => {
@@ -95,11 +115,13 @@ export const useCursor = () => {
     }
   }, [opacity]);
 
+  useHookDebugGroup('Events', HookDebugGroupAction.Start)
   useEventListener("mouseover", onMouseOver, {});
   useEventListener("mousedown", onMouseDown, {});
   useEventListener("mouseup", onMouseUp, {});
   useEventListener("dragend", onMouseUp, {});
   useEventListener("mousemove", onMouseMove, {});
+  useHookDebugGroup('Events', HookDebugGroupAction.End)
 
   useEffect(() => {
     mainRef.current = document.querySelector("main");
@@ -110,6 +132,7 @@ export const useCursor = () => {
       if (cursorRef.current == null) {
         setOpacity(0);
       }
+      console.log('called')
     },
     [x, y],
     {
@@ -125,12 +148,14 @@ export const useCursor = () => {
     bounding?.update?.();
   }, []);
 
+  useHookDebugGroup('Mutation Observer', HookDebugGroupAction.Start)
   useMutationObserver(mainRef, onMutation, {
     childList: true,
     subtree: true,
     attributes: true,
     characterData: true,
   });
+  useHookDebugGroup('Mutation Observer', HookDebugGroupAction.End)
 
   return {
     bounding,

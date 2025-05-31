@@ -51,6 +51,9 @@ export default defineConfig({
       $: path.join(__dirname, "src"),
     },
   },
+  esbuild: {
+    sourcemap: false,
+  },
   plugins: [
     ViteImageOptimizer(),
     {
