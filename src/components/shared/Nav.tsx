@@ -1,4 +1,7 @@
+import { usePageContext } from "$/context/pageContext";
+
 export const Nav = () => {
+  const pageContext = usePageContext()
   return (
     <>
       <nav
@@ -10,25 +13,27 @@ export const Nav = () => {
       "
       >
         <a
-          className="
+          className={`
         	  font-semibold
             rounded-full
         	  hover:text-yellow-300 hover:underline
         	  px-2
         	  py-1
-      	  "
+            ${pageContext._pageId === '/src/pages/index' ? 'underline' : ''}
+      	  `}
           href="/"
         >
           Home
         </a>
         <a
-          className="
+          className={`
             font-semibold
             rounded-full
             hover:text-yellow-300 hover:underline
             px-2
             py-1
-          "
+            ${pageContext._pageId === '/src/pages/blogs' ? 'underline' : ''}
+          `}
           href="/blogs"
         >
           Blogs

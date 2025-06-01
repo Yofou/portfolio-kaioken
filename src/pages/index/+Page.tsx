@@ -18,7 +18,7 @@ function Page() {
         	items-end
       	"
       >
-        <h2 className="text-yellow-300 text-3xl max-w-[600px] font-black underline">
+        <h2 className="text-yellow-300 text-3xl max-w-[600px] font-black">
           Hey, I'm Nathan 👋
         </h2>
         <p className="max-w-[600px] leading-[1.5rem]">

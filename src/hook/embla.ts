@@ -7,8 +7,8 @@ export type EmblaHookOptions = EmblaOptionsType &
 		plugins: EmblaPluginType[];
 	}>;
 
-export const useEmbla = (ref: Kaioken.Ref<HTMLElement>, options: EmblaHookOptions) => {
-  const embla = useRef<EmblaCarouselType>(null)
+export const useEmbla = (ref: Kaioken.RefObject<HTMLElement>, options: EmblaHookOptions) => {
+  const embla = useRef<EmblaCarouselType | null>(null)
 
   useEffect(() => {
     if (ref.current) {
@@ -19,7 +19,7 @@ export const useEmbla = (ref: Kaioken.Ref<HTMLElement>, options: EmblaHookOption
     return () => {
       embla.current?.destroy()
     }
-  }, [ref.current, options, options.active])
+  }, [options.active])
 
   return [embla]
 }

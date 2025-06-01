@@ -5,10 +5,10 @@ import {
   useEventListener,
   useMouse,
   useMutationObserver,
-  useTween,
   useSpring,
+  useTween
 } from "@kaioken-core/hooks";
-import { HookDebugGroupAction, useCallback, useEffect, useHookDebugGroup, useRef, useState } from "kaioken";
+import { HookDebugGroupAction, useCallback, useEffect, useHookDebugGroup, useRef, useSignal, useWatch } from "kaioken";
 
 export const useCursor = () => {
   useHookDebugGroup('Mouse', HookDebugGroupAction.Start)
@@ -20,34 +20,34 @@ export const useCursor = () => {
   const bounding = useElementBounding(cursorRef);
   useHookDebugGroup('Bounding', HookDebugGroupAction.End)
   useHookDebugGroup('X', HookDebugGroupAction.Start)
-  const [x, setX] = useSpring(0, {
+  const x = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
   useHookDebugGroup('X', HookDebugGroupAction.End)
   useHookDebugGroup('Y', HookDebugGroupAction.Start)
-  const [y, setY] = useSpring(0, {
+  const y = useSpring(0, {
     stiffness: 0.2,
     damping: 0.8,
   });
   useHookDebugGroup('Y', HookDebugGroupAction.End)
   useHookDebugGroup('Width', HookDebugGroupAction.Start)
-  const [width, setWidth] = useTween(40, { duration: 100 });
+  const width = useTween(40, { duration: 100 });
   useHookDebugGroup('Width', HookDebugGroupAction.End)
   useHookDebugGroup('Height', HookDebugGroupAction.Start)
-  const [height, setHeight] = useTween(40, { duration: 100 });
+  const height = useTween(40, { duration: 100 });
   useHookDebugGroup('Height', HookDebugGroupAction.End)
   useHookDebugGroup('Rounded', HookDebugGroupAction.Start)
-  const [rounded, setRounded] = useTween(9999, { duration: 100 });
+  const rounded = useTween(9999, { duration: 100 });
   useHookDebugGroup('Rounded', HookDebugGroupAction.End)
   useHookDebugGroup('Opacity', HookDebugGroupAction.Start)
-  const [opacity, setOpacity] = useTween(0, { duration: 100 });
+  const opacity = useTween(0, { duration: 100 });
   useHookDebugGroup('Opacity', HookDebugGroupAction.End)
   useHookDebugGroup('Scale', HookDebugGroupAction.Start)
-  const [scale, setScale] = useTween(1, { duration: 100 });
+  const scale = useTween(1, { duration: 100 });
   useHookDebugGroup('Scale', HookDebugGroupAction.End)
   useHookDebugGroup('Color', HookDebugGroupAction.Start)
-  const [color, setColor] = useState("#E9AA52");
+  const color = useSignal("#E9AA52");
   useHookDebugGroup('Color', HookDebugGroupAction.End)
   const mainRef = useRef<HTMLElement | null>(null);
 
@@ -57,43 +57,48 @@ export const useCursor = () => {
         event.target instanceof HTMLParagraphElement ||
         event.target instanceof HTMLHeadingElement
       ) {
-        setOpacity(0.5);
+        opacity.set(0.5)
       } else {
-        setOpacity(1);
+        opacity.set(1)
       }
 
       if (event.target instanceof HTMLElement) {
         const styles = window.getComputedStyle(event.target);
         if (styles.cursor === "pointer") {
           cursorRef.current = event.target;
-          setRounded(parseInt(styles.borderRadius));
+          rounded.set(
+            parseInt(styles.borderRadius)
+          )
         } else {
           cursorRef.current = null;
-          setRounded(9999);
+          rounded.set(
+            9999
+          )
         }
         bounding.update();
       }
     },
-    [setRounded]
+    []
   );
 
-  useEffect(() => {
-    if (bounding.x && bounding.y) {
-      setX(bounding.x + bounding.width / 2);
-      setY(bounding.y + bounding.height / 2);
-      setWidth(bounding.width);
-      setHeight(bounding.height);
+  useWatch(() => {
+    if (bounding.x.value && bounding.y.value) {
+      x.set(bounding.x.value + bounding.width.value / 2)
+      y.set(bounding.y.value + bounding.height.value / 2)
+      width.set(bounding.width.value)
+      height.set(bounding.height.value)
     } else {
-      setX(mouse.x, {
-        hard: opacity != 1,
-      });
-      setY(mouse.y, {
-        hard: opacity != 1,
-      });
-      setWidth(40);
-      setHeight(40);
+      x.set(mouse.value.x, {
+        hard: opacity.value != 1
+      })
+      y.set(mouse.value.y, {
+        hard: opacity.value != 1
+      })
+
+      width.set(40)
+      height.set(40)
     }
-  }, [mouse]);
+  });
 
   const onMouseDown = useCallback(() => {
     if (
@@ -101,19 +106,19 @@ export const useCursor = () => {
       cursorRef.current?.hasAttribute("onclick") ||
       cursorRef.current == null
     ) {
-      setScale(0.8);
+      scale.set(0.8)
     }
-  }, [cursorRef.current, setScale]);
+  }, []);
 
   const onMouseUp = useCallback(() => {
-    setScale(1);
-  }, [cursorRef.current, setScale]);
+    scale.set(1)
+  }, []);
 
   const onMouseMove = useCallback(() => {
-    if (opacity === 0) {
-      setOpacity(1);
+    if (opacity.value === 0) {
+      opacity.set(1)
     }
-  }, [opacity]);
+  }, []);
 
   useHookDebugGroup('Events', HookDebugGroupAction.Start)
   useEventListener("mouseover", onMouseOver, {});
@@ -130,18 +135,17 @@ export const useCursor = () => {
   useEffectDebounce(
     () => {
       if (cursorRef.current == null) {
-        setOpacity(0);
+        opacity.set(0)
       }
-      console.log('called')
     },
-    [x, y],
+    [x.value, y.value],
     {
       maxWait: 3000,
     }
   );
 
   useCursorEvent("color", (newColor: string | null) => {
-    setColor(newColor ?? "#E9AA52");
+    color.value = newColor ?? "#E9AA52"
   });
 
   const onMutation = useCallback(() => {

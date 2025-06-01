@@ -1,6 +1,6 @@
 import { useEmbla } from "$/hook/embla";
-import { useEventListener, useWindowSize } from "@kaioken-core/hooks";
-import { useCallback, useRef } from "kaioken";
+import { useWindowSize } from "@kaioken-core/hooks";
+import { useCallback, useComputed, useRef } from "kaioken";
 import "../../styles/BlogCarousel.css";
 import { emitter } from "$/hook/useCursorEvent";
 import { metadata } from "$/pages/metadata";
@@ -24,12 +24,12 @@ export const BlogCarousel = () => {
   }
 
   const { width: innerWidth } = useWindowSize();
-  const isMd = innerWidth > 768;
-  const ref = useRef<HTMLElement>(null);
+  const isMd = useComputed(() => innerWidth.value > 768);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEmbla(ref, {
     align: "center",
-    active: isMd,
+    active: isMd.value,
     plugins: [],
   });
 

@@ -1,6 +1,6 @@
 import { useCursor } from "$/hook/useCursor";
 import { useCursorEvent } from "$/hook/useCursorEvent";
-import { ElementProps, Transition, useState } from "kaioken";
+import { ElementProps, Transition, useComputed, useState } from "kaioken";
 import "../../styles/Cursor.css";
 
 export const CursorArrow = ({ className, style }: ElementProps<"svg">) => {
@@ -31,6 +31,18 @@ export const Cursor = () => {
   useCursorEvent("carousel", (value: boolean) => {
     setIsHoveringCarousel(value);
   });
+  const style = useComputed(() => {
+    return `
+      --x: ${x.value}px;
+      --y: ${y.value}px;
+      --width: ${width.value}px;
+      --height: ${height.value}px;
+      --rounded: ${rounded.value}px;
+      --scale: ${scale.value};
+      --color: ${color.value ?? "unset"};
+      --opacity: ${opacity.value}
+    `
+  })
 
   return (
     <div
@@ -43,16 +55,7 @@ export const Cursor = () => {
       pointer-events-none 
       cursor
     `}
-      style={`
-      --x: ${x}px;
-      --y: ${y}px;
-      --width: ${width}px;
-      --height: ${height}px;
-      --rounded: ${rounded}px;
-      --scale: ${scale};
-      --color: ${color ?? "unset"};
-      --opacity: ${opacity}
-    `}
+      style={style}
     >
       <Transition
         in={isHoveringCarousel}
@@ -76,7 +79,8 @@ export const Cursor = () => {
             />
           );
         }}
-      />
+        />
+
     </div>
   );
 };
