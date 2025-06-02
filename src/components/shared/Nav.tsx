@@ -2,6 +2,7 @@ import { usePageContext } from "$/context/pageContext";
 
 export const Nav = () => {
   const pageContext = usePageContext()
+  console.log(pageContext._pageId)
   return (
     <>
       <nav
@@ -32,7 +33,7 @@ export const Nav = () => {
             hover:text-yellow-300 hover:underline
             px-2
             py-1
-            ${pageContext._pageId === '/src/pages/blogs' ? 'underline' : ''}
+            ${pageContext._pageId?.includes?.('/src/pages/blogs') ? 'underline' : ''}
           `}
           href="/blogs"
         >

@@ -1,13 +1,14 @@
 import { Cursor } from "$/components/shared/Cursor";
 import { Nav } from "$/components/shared/Nav";
 import { useWindowSize } from "@kaioken-core/hooks";
+import { Derive, computed } from "kaioken";
 
 type LayoutProps = Kaioken.FCProps<{
   title: string
 }>
 export const LayoutDefault = (props: LayoutProps) => {
   const { width } = useWindowSize()
-  const isDesktop = width ? width > 691 : false
+  const isDesktop = computed(() => width.value ? width.value > 691 : false)
   return <>
     <main className="
       w-full
@@ -25,6 +26,10 @@ export const LayoutDefault = (props: LayoutProps) => {
 
       {props.children}
     </main>
-    {isDesktop && <Cursor />}
+    <Derive from={isDesktop}>
+      {(isDesktopValue) => {
+        return <>{isDesktopValue && <Cursor />}</>
+      }}
+    </Derive>
   </>
 }
