@@ -2,7 +2,6 @@ import { usePageContext } from "$/context/pageContext";
 
 export const Nav = () => {
   const pageContext = usePageContext()
-  console.log(pageContext._pageId)
   return (
     <>
       <nav
