@@ -59,7 +59,10 @@ export const Cursor = () => {
     >
       <Transition
         in={isHoveringCarousel}
-        timings={[150, 0, 150, 0]}
+        duration={{
+          in: 150,
+          out: 0
+        }}
         element={(state) => {
           if (state === "exited") return null;
           const additionalClass = `cursor-${state}`;
@@ -68,7 +71,10 @@ export const Cursor = () => {
       />
       <Transition
         in={isHoveringCarousel}
-        timings={[150, 0, 150, 0]}
+        duration={{
+          in: 150,
+          out: 0
+        }}
         element={(state) => {
           if (state === "exited") return null;
           const additionalClass = `cursor-${state}`;
